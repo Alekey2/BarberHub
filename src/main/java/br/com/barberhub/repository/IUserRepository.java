@@ -1,6 +1,6 @@
-package br.com.smartmenu.repository;
+package br.com.barberhub.repository;
 
-import br.com.smartmenu.entities.User;
+import br.com.barberhub.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

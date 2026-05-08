@@ -1,8 +1,8 @@
-package br.com.smartmenu.controller;
+package br.com.barberhub.controller;
 
-import br.com.smartmenu.dto.UserDTO;
-import br.com.smartmenu.entities.User;
-import br.com.smartmenu.service.UserService;
+import br.com.barberhub.dto.UserDTO;
+import br.com.barberhub.entities.User;
+import br.com.barberhub.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

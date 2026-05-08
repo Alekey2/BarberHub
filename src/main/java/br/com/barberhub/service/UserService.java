@@ -1,10 +1,10 @@
-package br.com.smartmenu.service;
+package br.com.barberhub.service;
 
-import br.com.smartmenu.dto.UserDTO;
-import br.com.smartmenu.entities.User;
-import br.com.smartmenu.exceptions.BadRequestException;
-import br.com.smartmenu.exceptions.NotFoundException;
-import br.com.smartmenu.repository.IUserRepository;
+import br.com.barberhub.dto.UserDTO;
+import br.com.barberhub.entities.User;
+import br.com.barberhub.exceptions.BadRequestException;
+import br.com.barberhub.exceptions.NotFoundException;
+import br.com.barberhub.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

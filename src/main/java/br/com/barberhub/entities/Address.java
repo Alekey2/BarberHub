@@ -1,4 +1,4 @@
-package br.com.smartmenu.entities;
+package br.com.barberhub.entities;
 
 import jakarta.persistence.*;
 

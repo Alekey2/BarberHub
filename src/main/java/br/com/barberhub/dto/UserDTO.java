@@ -1,4 +1,4 @@
-package br.com.smartmenu.dto;
+package br.com.barberhub.dto;
 
 import lombok.*;
 

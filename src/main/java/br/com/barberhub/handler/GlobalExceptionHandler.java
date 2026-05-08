@@ -1,8 +1,8 @@
-package br.com.smartmenu.handler;
+package br.com.barberhub.handler;
 
-import br.com.smartmenu.exceptions.BadRequestException;
-import br.com.smartmenu.exceptions.ErrorResponse;
-import br.com.smartmenu.exceptions.NotFoundException;
+import br.com.barberhub.exceptions.BadRequestException;
+import br.com.barberhub.exceptions.ErrorResponse;
+import br.com.barberhub.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

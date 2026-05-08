@@ -1,6 +1,6 @@
-package br.com.smartmenu.entities;
+package br.com.barberhub.entities;
 
-import br.com.smartmenu.dto.UserDTO;
+import br.com.barberhub.dto.UserDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

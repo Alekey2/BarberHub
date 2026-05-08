@@ -1,4 +1,4 @@
-package br.com.smartmenu.exceptions;
+package br.com.barberhub.exceptions;
 
 public class NotFoundException extends RuntimeException {
 

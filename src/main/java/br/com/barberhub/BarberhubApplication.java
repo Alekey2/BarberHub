@@ -1,13 +1,13 @@
-package br.com.smartmenu;
+package br.com.barberhub;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SmartmenuApplication {
+public class BarberhubApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartmenuApplication.class, args);
+		SpringApplication.run(BarberhubApplication.class, args);
 	}
 
 }
