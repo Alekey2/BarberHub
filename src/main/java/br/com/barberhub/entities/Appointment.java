@@ -37,4 +37,12 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_item_id")
     private ServiceItem  serviceItem;
+
+    public void cancel() {
+        this.status = AppointmentStatus.CANCELLED;
+    }
+
+    public void completed() {
+        this.status = AppointmentStatus.COMPLETED;
+    }
 }

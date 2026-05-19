@@ -1,7 +1,7 @@
 package br.com.barberhub.service;
 
+import br.com.barberhub.dto.ReviewRequestDTO;
 import br.com.barberhub.dto.ReviewResponseDTO;
-import br.com.barberhub.entities.Appointment;
 import br.com.barberhub.entities.Barber;
 import br.com.barberhub.entities.Review;
 import br.com.barberhub.entities.User;
@@ -15,6 +15,7 @@ import br.com.barberhub.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -32,20 +33,20 @@ public class ReviewService {
                 .map(ReviewResponseDTO::new)
                 .toList();
 
-
     }
 
+    public ReviewResponseDTO createAssessment(ReviewRequestDTO dto) {
 
-    public ReviewResponseDTO createAssessment(Long id, ReviewResponseDTO dto) {
-        AppointmentStatus status;
+        User user = userRepository.findById(dto.userId())
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found!!"));
+        Barber barber = barberRepository.findById(dto.barberId())
+                .orElseThrow(() -> new NotFoundException("Barber not found"));
 
-        Barber barber = barberRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Barber not found!!"));
-
-        if (appointmentRepository.findByUserIdAndBarberIdAndStatus(user.getId(), barber.getId(), AppointmentStatus.COMPLETED).isEmpty()) {
+        if (appointmentRepository.findByUserIdAndBarberIdAndStatus(
+                user.getId(),
+                barber.getId(),
+                AppointmentStatus.COMPLETED).isEmpty()) {
             throw new BadRequestException("User has no completed appointment with this barber");
         }
 
@@ -54,31 +55,44 @@ public class ReviewService {
         review.setUser(user);
         review.setRating(dto.ratting());
         review.setComment(dto.comment());
-        review.setReviewDate(dto.reviewDate());
+        review.setReviewDate(LocalDateTime.now());
 
-        return new ReviewResponseDTO(repository.save(review));
+        ReviewResponseDTO response = new ReviewResponseDTO(repository.save(review));
 
+        calculateRating(dto.barberId());
 
+        return response;
     }
 
     public void deleteAssessment(Long id) {
-        Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Appointment not found!!"));
+        Review review = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Review not found"));
 
-        repository.deleteById(id);
-    }
+        Long barberId = review.getBarber().getId();
+        repository.delete(review);
 
-
-
-
-    public List<ReviewResponseDTO> findAllRattingByBarber(Long barberId) {
-        var media = repository.findAllRattingByBarberId(barberId);
-
-
-        return null;
+        calculateRating(barberId);
 
     }
 
+
+    public void calculateRating(Long barberId) {
+        List<Review> reviews = repository.findByBarberId(barberId);
+
+        double average = reviews.stream()
+                .mapToDouble(Review::getRating)
+                .average()
+                .orElse(0.0);
+
+        Barber barber = barberRepository.findById(barberId)
+                .orElseThrow(() -> new NotFoundException("Barber not found!!"));
+
+        barber.setRating(average);
+
+        barberRepository.save(barber);
+
+
+    }
 
 
 }

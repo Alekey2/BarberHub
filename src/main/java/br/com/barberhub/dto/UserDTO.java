@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 
 public record UserDTO(
         @NotBlank
+        String name,
+        @NotBlank
         @Email
         String email,
         @NotBlank
